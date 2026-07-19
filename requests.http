@@ -1,0 +1,33 @@
+### Obtener todos los viajes
+GET http://localhost:4000/api/viajes
+
+### Crear un nuevo viaje
+POST http://localhost:4000/api/viajes
+Content-Type: application/json
+
+{
+  "conductor": "64a1b2c3d4e5f6a7b8c9d0e1",
+  "origen": "Madrid",
+  "destino": "Valencia",
+  "fecha": "2026-08-15T00:00:00.000Z",
+  "precioPorAsiento": 24.50,
+  "asientosDisponibles": 3
+}
+
+### Obtener un viaje por ID
+GET http://localhost:4000/api/viajes/6a5cf735beb4fbad1f66fb93
+
+### Actualizar un viaje
+PUT http://localhost:4000/api/viajes/6a5cf735beb4fbad1f66fb93
+Content-Type: application/json
+
+{
+  "precioPorAsiento": 30,
+  "asientosDisponibles": 1
+}
+
+### Eliminar un viaje
+DELETE http://localhost:4000/api/viajes/6a5cf735beb4fbad1f66fb93
+
+### Probar 404 (ruta inexistente)
+GET http://localhost:4000/api/rutaquenoexiste
