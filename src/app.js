@@ -18,6 +18,17 @@ app.get("/api/debug", (req, res) => {
     });
 });
 
+const connectDB = require("./config/db");
+
+app.use(async (req, res, next) => {
+    try {
+        await connectDB(process.env.MONGODB_URI);
+        next();
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error de conexión a la base de datos" });
+    }
+});
+
 app.use("/api/viajes", viajeRoutes);
 
 app.use(notFound);
