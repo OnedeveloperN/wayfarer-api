@@ -10,6 +10,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/api/debug", (req, res) => {
+    res.json({
+        mongoUriExiste: !!process.env.MONGODB_URI,
+        mongoUriLongitud: process.env.MONGODB_URI ? process.env.MONGODB_URI.length : 0,
+        port: process.env.PORT || "no definido"
+    });
+});
+
 app.use("/api/viajes", viajeRoutes);
 
 app.use(notFound);
