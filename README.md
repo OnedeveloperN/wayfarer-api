@@ -156,6 +156,13 @@ El proyecto incluye un archivo [`requests.http`](./requests.http) con todas las 
 
 La API está desplegada en **Vercel** y conectada a MongoDB Atlas:
 
-- **URL de producción:** `[completar con la URL de Vercel]`
+- **URL de producción:** [https://wayfarer-api.vercel.app](https://wayfarer-api.vercel.app)
+- **Endpoint de ejemplo:** [https://wayfarer-api.vercel.app/api/viajes](https://wayfarer-api.vercel.app/api/viajes)
 
 Las variables de entorno (`MONGODB_URI`) están configuradas directamente en el panel de Vercel, sin exponerse en el código fuente.
+
+> **Nota técnica:** en el entorno serverless de Vercel, la resolución DNS por defecto puede fallar al intentar conectar con la cadena `mongodb+srv://` de Atlas. Para solucionarlo, `server.js` fuerza el uso de servidores DNS públicos (Google y Cloudflare) antes de establecer la conexión:
+> ```js
+> const dns = require("dns");
+> dns.setServers(["8.8.8.8", "8.8.4.4", "1.1.1.1"]);
+> ```
