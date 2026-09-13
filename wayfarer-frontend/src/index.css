@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-sans: "Inter", sans-serif;
+
+  /* Kinetic Trust - superficie */
+  --color-background: #f8f9ff;
+  --color-surface: #ffffff;
+  --color-surface-container: #e5eeff;
+  --color-surface-container-high: #dce9ff;
+  --color-outline: #6c7b6f;
+  --color-outline-variant: #bacbbd;
+
+  /* Kinetic Trust - texto */
+  --color-on-surface: #0b1c30;
+  --color-on-surface-variant: #3c4a40;
+
+  /* Kinetic Trust - marca */
+  --color-primary: #006d43;
+  --color-primary-container: #00d084;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #005331;
+
+  --color-secondary: #a53b22;
+  --color-secondary-container: #fe7d5e;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #711601;
+
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+}
+
+/* Elevación Nivel 1 (tarjetas), según DESIGN.md */
+.elevation-1 {
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.elevation-2 {
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.list-item-enter {
+  animation: fade-in-up 0.25s ease both;
+}
