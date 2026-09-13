@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const usuarioSchema = new mongoose.Schema({
     nombre: {
@@ -25,6 +26,16 @@ const usuarioSchema = new mongoose.Schema({
     }
 }, {
     timestamps: true
+});
+
+// Antes de guardar, si la password fue modificada (o es nueva), la hasheamos.
+// Así nunca queda guardada en texto plano en la base de datos, aunque
+// en este proyecto no la usemos para verificar login (elegiste el modo
+// "seleccionar usuario sin contraseña").
+usuarioSchema.pre("save", async function () {
+    if (!this.isModified("password")) return;
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 });
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);

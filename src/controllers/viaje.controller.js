@@ -34,16 +34,32 @@ const crearViaje = async (req, res) => {
 };
 
 // PUT /api/viajes/:id - actualizar
+// Solo el conductor que creó el viaje puede editarlo.
+// Como no usamos JWT, el frontend nos dice "quién es" mediante el
+// header x-usuario-id (ver aviso de seguridad: esto es autodeclarado,
+// no verificado con un token firmado).
 const actualizarViaje = async (req, res) => {
     try {
+        const usuarioId = req.headers["x-usuario-id"];
+        if (!usuarioId) {
+            return res.status(401).json({ mensaje: "Falta identificar al usuario (x-usuario-id)" });
+        }
+
+        const viaje = await Viaje.findById(req.params.id);
+        if (!viaje) {
+            return res.status(404).json({ mensaje: "Viaje no encontrado" });
+        }
+
+        if (viaje.conductor.toString() !== usuarioId) {
+            return res.status(403).json({ mensaje: "No podés editar un viaje que no es tuyo" });
+        }
+
         const viajeActualizado = await Viaje.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
         );
-        if (!viajeActualizado) {
-            return res.status(404).json({ mensaje: "Viaje no encontrado" });
-        }
+
         res.status(200).json(viajeActualizado);
 
     } catch (error) {
@@ -52,13 +68,25 @@ const actualizarViaje = async (req, res) => {
 };
 
 // DELETE /api/viajes/:id - eliminar
+// Misma verificación de propiedad que en actualizarViaje.
 const eliminarViaje = async (req, res) => {
     try {
-        const viajeEliminado = await Viaje.findByIdAndDelete(req.params.id);
+        const usuarioId = req.headers["x-usuario-id"];
+        if (!usuarioId) {
+            return res.status(401).json({ mensaje: "Falta identificar al usuario (x-usuario-id)" });
+        }
 
-        if (!viajeEliminado) {
+        const viaje = await Viaje.findById(req.params.id);
+        if (!viaje) {
             return res.status(404).json({ mensaje: "Viaje no encontrado" });
         }
+
+        if (viaje.conductor.toString() !== usuarioId) {
+            return res.status(403).json({ mensaje: "No podés eliminar un viaje que no es tuyo" });
+        }
+
+        const viajeEliminado = await Viaje.findByIdAndDelete(req.params.id);
+
         res.status(200).json({ mensaje: "Viaje eliminado correctamente", viaje: viajeEliminado });
 
     } catch (error) {

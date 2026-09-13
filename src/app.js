@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const viajeRoutes = require("./routes/viaje.routes");
+const usuarioRoutes = require("./routes/usuario.routes");
 const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
 require("./models/Usuario");
@@ -22,6 +23,7 @@ app.use(async (req, res, next) => {
 });
 
 app.use("/api/viajes", viajeRoutes);
+app.use("/api/usuarios", usuarioRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
