@@ -14,7 +14,7 @@ export function UsuarioProvider({ children }) {
   })
 
   // Cada vez que cambia el usuario actual, sincronizamos con localStorage,
-  // así la sesión persiste si recargás la página.
+  // así la sesión persiste si se recarga la página.
   useEffect(() => {
     if (usuarioActual) {
       localStorage.setItem(CLAVE_STORAGE, JSON.stringify(usuarioActual))

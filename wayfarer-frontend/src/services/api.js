@@ -46,7 +46,7 @@ export function eliminarViaje(id, usuarioId) {
   }).then(parseResponse)
 }
 
-// --- Usuarios ---
+// Usuarios
 
 export function getUsuarios() {
   return fetch(`${API_BASE_URL}/usuarios`).then(parseResponse)

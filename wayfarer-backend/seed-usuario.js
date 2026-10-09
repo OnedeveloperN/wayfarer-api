@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const dns = require('dns');
 dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
 
-const Usuario = require('./src/models/Usuario');
+const Usuario = require('./src/models/usuario-model');
 
 const uri = process.argv[2];
 

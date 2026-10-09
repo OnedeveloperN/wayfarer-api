@@ -24,9 +24,7 @@ function HomePage() {
   })
 
   async function handleEliminar(id) {
-    // El botón "Eliminar" solo se muestra si el viaje es del usuario actual
-    // (ver ViajeCard), así que acá siempre debería haber un usuarioActual.
-    // Igual el backend vuelve a verificar la propiedad, por las dudas.
+    // El botón "Eliminar" solo se muestra si el viaje es del usuario actual.
     await eliminarViaje(id, usuarioActual?._id)
   }
 

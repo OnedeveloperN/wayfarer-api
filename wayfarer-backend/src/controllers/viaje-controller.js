@@ -1,17 +1,17 @@
-const Viaje = require("../models/Viaje");
+const Viaje = require("../models/viaje-model");
 
 // GET /api/viajes - obtener todos
-const getViajes = async (req, res) => {
+const getViajes = async (req, res, next) => {
     try {
         const viajes = await Viaje.find().populate("conductor", "nombre email");
         res.status(200).json(viajes);
     } catch (error) {
-        res.status(500).json({ mensaje: "Error al obtener los viajes", error: error.message });
+        next(error);
     }
 };
 
 // GET /api/viajes/:id - obtener uno
-const getViajeById = async (req, res) => {
+const getViajeById = async (req, res, next) => {
     try {
         const viaje = await Viaje.findById(req.params.id);
         if (!viaje) {
@@ -19,26 +19,22 @@ const getViajeById = async (req, res) => {
         }
         res.status(200).json(viaje);
     } catch (error) {
-        res.status(500).json({ mensaje: "Error al buscar el viaje", error: error.message });
+        next(error);
     }
 };
 
 // POST /api/viajes - crear
-const crearViaje = async (req, res) => {
+const crearViaje = async (req, res, next) => {
     try {
         const nuevoViaje = await Viaje.create(req.body);
         res.status(201).json(nuevoViaje);
     } catch (error) {
-        res.status(500).json({ mensaje: "Error al crear el viaje", error: error.message });
+        next(error);
     }
 };
 
 // PUT /api/viajes/:id - actualizar
-// Solo el conductor que creó el viaje puede editarlo.
-// Como no usamos JWT, el frontend nos dice "quién es" mediante el
-// header x-usuario-id (ver aviso de seguridad: esto es autodeclarado,
-// no verificado con un token firmado).
-const actualizarViaje = async (req, res) => {
+const actualizarViaje = async (req, res, next) => {
     try {
         const usuarioId = req.headers["x-usuario-id"];
         if (!usuarioId) {
@@ -57,19 +53,18 @@ const actualizarViaje = async (req, res) => {
         const viajeActualizado = await Viaje.findByIdAndUpdate(
             req.params.id,
             req.body,
-            { new: true }
+            { new: true, runValidators: true }
         );
 
         res.status(200).json(viajeActualizado);
 
     } catch (error) {
-        res.status(500).json({ mensaje: "Error al actualizar el viaje", error: error.message });
+        next(error);
     }
 };
 
 // DELETE /api/viajes/:id - eliminar
-// Misma verificación de propiedad que en actualizarViaje.
-const eliminarViaje = async (req, res) => {
+const eliminarViaje = async (req, res, next) => {
     try {
         const usuarioId = req.headers["x-usuario-id"];
         if (!usuarioId) {
@@ -90,7 +85,7 @@ const eliminarViaje = async (req, res) => {
         res.status(200).json({ mensaje: "Viaje eliminado correctamente", viaje: viajeEliminado });
 
     } catch (error) {
-        res.status(500).json({ mensaje: "Error al eliminar viaje", error: error.message });
+        next(error);
     }
 };
 

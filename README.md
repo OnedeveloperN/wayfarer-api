@@ -8,7 +8,7 @@ Este es un **monorepo**: un único repositorio de GitHub con dos proyectos indep
 
 ```
 wayfarer-api/           (repo raíz)
-├── wayfarer-api/        → Backend: Node.js + Express + MongoDB (Mongoose)
+├── wayfarer-backend/        → Backend: Node.js + Express + MongoDB (Mongoose)
 └── wayfarer-frontend/   → Frontend: React + Vite + Tailwind CSS
 ```
 
@@ -134,6 +134,32 @@ flowchart TD
     N -- Coincide --> O[Operación permitida]
     N -- No coincide --> P[403 Forbidden]
 ```
+
+erDiagram
+    USUARIO {
+        ObjectId _id PK
+        String nombre
+        String email UK
+        String password
+        Boolean esConductor
+        Date createdAt
+        Date updatedAt
+    }
+
+    VIAJE {
+        ObjectId _id PK
+        String origen
+        String destino
+        Date fecha
+        Number precio
+        Number plazas
+        ObjectId conductor FK
+        Date createdAt
+        Date updatedAt
+    }
+
+    USUARIO ||--o{ VIAJE : "publica"
+
 
 ## 🛠️ Stack
 

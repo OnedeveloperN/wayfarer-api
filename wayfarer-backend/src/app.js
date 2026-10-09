@@ -1,15 +1,20 @@
 const express = require("express");
 const cors = require("cors");
-const viajeRoutes = require("./routes/viaje.routes");
-const usuarioRoutes = require("./routes/usuario.routes");
-const notFound = require("./middlewares/notFound");
-const errorHandler = require("./middlewares/errorHandler");
-require("./models/Usuario");
+const morgan = require("morgan");
+
+const viajeRoutes = require("./routes/viaje-routes");
+const usuarioRoutes = require("./routes/usuario-routes");
+const notFound = require("./middlewares/not-found");
+const errorHandler = require("./middlewares/error-handler");
+require("./models/usuario-model");
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+app.use(morgan('dev'))
+
+
 
 const connectDB = require("./config/db");
 

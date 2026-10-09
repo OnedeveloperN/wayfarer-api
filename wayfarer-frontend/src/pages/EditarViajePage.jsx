@@ -27,7 +27,7 @@ function EditarViajePage() {
   if (estado.loading) return <LoadingState mensaje="Cargando viaje..." />
   if (estado.error) return <ErrorState mensaje={estado.error} />
 
-  // getViajeById no popula "conductor", así que acá es directamente el id (string).
+  // getViajeById no popula "conductor", es directamente el id (string).
   const esPropio = usuarioActual && estado.viaje.conductor === usuarioActual._id
 
   if (!esPropio) {

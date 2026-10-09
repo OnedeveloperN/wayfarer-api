@@ -6,7 +6,7 @@ const {
     crearViaje,
     actualizarViaje,
     eliminarViaje
-} = require("../controllers/viaje.controller");
+} = require("../controllers/viaje-controller");
 
 router.get("/", getViajes);
 router.get("/:id", getViajeById);
