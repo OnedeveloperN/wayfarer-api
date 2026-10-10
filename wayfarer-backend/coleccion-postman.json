@@ -1,131 +1,80 @@
 {
-    "info": {
-      "name": "Wayfarer API - Colección de Pruebas",
-      "description": "Colección de endpoints para la evaluación del proyecto Wayfarer",
-      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-    },
-    "item": [
-      {
-        "name": "Usuarios",
-        "item": [
-          {
-            "name": "GET /api/usuarios - Obtener usuarios",
-            "request": {
-              "method": "GET",
-              "url": {
-                "raw": "https://wayfarer-api.vercel.app/api/usuarios",
-                "protocol": "https",
-                "host": ["wayfarer-api", "vercel", "app"],
-                "path": ["api", "usuarios"]
-              }
-            }
-          },
-          {
-            "name": "POST /api/usuarios - Crear/Registrar usuario",
-            "request": {
-              "method": "POST",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": {
-                "mode": "raw",
-                "raw": "{\n  \"nombre\": \"Usuario Demo\",\n  \"email\": \"demo@mail.com\",\n  \"password\": \"123456\",\n  \"esConductor\": true\n}"
-              },
-              "url": {
-                "raw": "https://wayfarer-api.vercel.app/api/usuarios",
-                "protocol": "https",
-                "host": ["wayfarer-api", "vercel", "app"],
-                "path": ["api", "usuarios"]
-              }
-            }
-          }
-        ]
-      },
-      {
-        "name": "Viajes",
-        "item": [
-          {
-            "name": "GET /api/viajes - Listar todos los viajes",
-            "request": {
-              "method": "GET",
-              "url": {
-                "raw": "https://wayfarer-api.vercel.app/api/viajes",
-                "protocol": "https",
-                "host": ["wayfarer-api", "vercel", "app"],
-                "path": ["api", "viajes"]
-              }
-            }
-          },
-          {
-            "name": "POST /api/viajes - Publicar nuevo viaje",
-            "request": {
-              "method": "POST",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": {
-                "mode": "raw",
-                "raw": "{\n  \"origen\": \"Málaga\",\n  \"destino\": \"Sevilla\",\n  \"fecha\": \"2026-11-01\",\n  \"precio\": 12,\n  \"plazas\": 3,\n  \"conductor\": \"ID_USUARIO_AQUI\"\n}"
-              },
-              "url": {
-                "raw": "https://wayfarer-api.vercel.app/api/viajes",
-                "protocol": "https",
-                "host": ["wayfarer-api", "vercel", "app"],
-                "path": ["api", "viajes"]
-              }
-            }
-          },
-          {
-            "name": "PUT /api/viajes/:id - Editar viaje (requiere x-usuario-id)",
-            "request": {
-              "method": "PUT",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "x-usuario-id",
-                  "value": "ID_DEL_CONDUCTOR_PROPIETARIO"
-                }
-              ],
-              "body": {
-                "mode": "raw",
-                "raw": "{\n  \"precio\": 15,\n  \"plazas\": 2\n}"
-              },
-              "url": {
-                "raw": "https://wayfarer-api.vercel.app/api/viajes/ID_VIAJE_AQUI",
-                "protocol": "https",
-                "host": ["wayfarer-api", "vercel", "app"],
-                "path": ["api", "viajes", "ID_VIAJE_AQUI"]
-              }
-            }
-          },
-          {
-            "name": "DELETE /api/viajes/:id - Eliminar viaje (requiere x-usuario-id)",
-            "request": {
-              "method": "DELETE",
-              "header": [
-                {
-                  "key": "x-usuario-id",
-                  "value": "ID_DEL_CONDUCTOR_PROPIETARIO"
-                }
-              ],
-              "url": {
-                "raw": "https://wayfarer-api.vercel.app/api/viajes/ID_VIAJE_AQUI",
-                "protocol": "https",
-                "host": ["wayfarer-api", "vercel", "app"],
-                "path": ["api", "viajes", "ID_VIAJE_AQUI"]
-              }
-            }
-          }
-        ]
-      }
-    ]
-  }
+	"info": {
+		"_postman_id": "wayfarer-api-collection",
+		"name": "Wayfarer API - CEI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Obtener todos los viajes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/viajes",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "4000",
+					"path": ["api", "viajes"]
+				}
+			}
+		},
+		{
+			"name": "Crear viaje",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"conductor\": \"650000000000000000000000\",\n  \"origen\": \"Málaga\",\n  \"destino\": \"Sevilla\",\n  \"fecha\": \"2026-11-15T00:00:00.000Z\",\n  \"horaSalida\": \"09:30\",\n  \"precioPorAsiento\": 15,\n  \"asientosDisponibles\": 3,\n  \"preferencias\": [\"No fumar\", \"Equipaje pequeño\"]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/viajes",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "4000",
+					"path": ["api", "viajes"]
+				}
+			}
+		},
+		{
+			"name": "Editar viaje propio",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" },
+					{ "key": "x-usuario-id", "value": "650000000000000000000000" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"precioPorAsiento\": 18,\n  \"asientosDisponibles\": 2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/viajes/ID_VIAJE_AQUI",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "4000",
+					"path": ["api", "viajes", "ID_VIAJE_AQUI"]
+				}
+			}
+		},
+		{
+			"name": "Eliminar viaje propio",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{ "key": "x-usuario-id", "value": "650000000000000000000000" }
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/viajes/ID_VIAJE_AQUI",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "4000",
+					"path": ["api", "viajes", "ID_VIAJE_AQUI"]
+				}
+			}
+		}
+	]
+}

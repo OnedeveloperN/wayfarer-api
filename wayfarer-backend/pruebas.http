@@ -1,33 +1,46 @@
-### Obtener todos los viajes
+### 1. Obtener todos los viajes
 GET http://localhost:4000/api/viajes
 
-### Crear un nuevo viaje
+### 2. Obtener todos los usuarios
+GET http://localhost:4000/api/usuarios
+
+### 3. Crear un viaje
 POST http://localhost:4000/api/viajes
 Content-Type: application/json
 
 {
-  "conductor": "64a1b2c3d4e5f6a7b8c9d0e1",
-  "origen": "Madrid",
-  "destino": "Valencia",
-  "fecha": "2026-08-15T00:00:00.000Z",
-  "precioPorAsiento": 24.50,
-  "asientosDisponibles": 3
+  "conductor": "6a901f65af993a5e2292bf2e",
+  "origen": "Málaga",
+  "destino": "Sevilla",
+  "fecha": "2026-11-15T00:00:00.000Z",
+  "horaSalida": "09:30",
+  "precioPorAsiento": 15,
+  "asientosDisponibles": 3,
+  "preferencias": ["No fumar", "Música suave"]
 }
 
-### Obtener un viaje por ID
-GET http://localhost:4000/api/viajes/6a5cf735beb4fbad1f66fb93
+### 4. Obtener un viaje por ID 
+GET http://localhost:4000/api/viajes/ID_VIAJE
 
-### Actualizar un viaje
-PUT http://localhost:4000/api/viajes/6a5cf735beb4fbad1f66fb93
+### 5. Editar un viaje propio
+PUT http://localhost:4000/api/viajes/ID_VIAJE
 Content-Type: application/json
+x-usuario-id: 6a901f65af993a5e2292bf2e
 
 {
-  "precioPorAsiento": 30,
-  "asientosDisponibles": 1
+  "precioPorAsiento": 18,
+  "asientosDisponibles": 2
 }
 
-### Eliminar un viaje
-DELETE http://localhost:4000/api/viajes/6a5cf735beb4fbad1f66fb93
+### 6. Intentar editar viaje ajeno (Responde 403 Forbidden)
+PUT http://localhost:4000/api/viajes/ID_VIAJE
+Content-Type: application/json
+x-usuario-id: 650000000000000000000000
 
-### Probar 404 (ruta inexistente)
-GET http://localhost:4000/api/rutaquenoexiste
+{
+  "precioPorAsiento": 99
+}
+
+### 7. Eliminar viaje propio
+DELETE http://localhost:4000/api/viajes/ID_VIAJE
+x-usuario-id: 6a901f65af993a5e2292bf2e
