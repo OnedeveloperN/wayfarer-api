@@ -18,6 +18,10 @@ const viajeSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    horaSalida: {
+        type: String,
+        required: true
+    },
     precioPorAsiento: {
         type: Number,
         required: true
@@ -25,6 +29,10 @@ const viajeSchema = new mongoose.Schema({
     asientosDisponibles: {
         type: Number,
         required: true
+    },
+    preferencias: {
+        type: [String],
+        required: false
     },
     estado: {
         type: String,
