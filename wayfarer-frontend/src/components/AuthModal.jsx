@@ -78,21 +78,19 @@ function AuthModal({ onClose }) {
         <div className="mt-4 flex gap-2 border-b border-outline-variant">
           <button
             onClick={() => setPestaña('elegir')}
-            className={`px-3 pb-2 text-sm font-medium ${
-              pestaña === 'elegir'
-                ? 'border-b-2 border-primary text-primary'
-                : 'text-on-surface-variant'
-            }`}
+            className={`px-3 pb-2 text-sm font-medium ${pestaña === 'elegir'
+              ? 'border-b-2 border-primary text-primary'
+              : 'text-on-surface-variant'
+              }`}
           >
             Usuario existente
           </button>
           <button
             onClick={() => setPestaña('crear')}
-            className={`px-3 pb-2 text-sm font-medium ${
-              pestaña === 'crear'
-                ? 'border-b-2 border-primary text-primary'
-                : 'text-on-surface-variant'
-            }`}
+            className={`px-3 pb-2 text-sm font-medium ${pestaña === 'crear'
+              ? 'border-b-2 border-primary text-primary'
+              : 'text-on-surface-variant'
+              }`}
           >
             Crear usuario
           </button>
@@ -111,13 +109,13 @@ function AuthModal({ onClose }) {
               <p className="text-sm text-on-surface-variant">Cargando usuarios...</p>
             )}
 
-            {!cargando && usuarios.length === 0 && (
+            {!cargando && (!Array.isArray(usuarios) || usuarios.length === 0) && (
               <p className="text-sm text-on-surface-variant">
                 Todavía no hay usuarios creados. Probá la pestaña "Crear usuario".
               </p>
             )}
 
-            {usuarios.map(({ _id, ...usuario }) => (
+            {(Array.isArray(usuarios) ? usuarios : []).map(({ _id, ...usuario }) => (
               <UsuarioOption
                 key={_id}
                 _id={_id}

@@ -13,11 +13,11 @@ function HomePage() {
 
   const [filtro, setFiltro] = useState(FILTRO_INICIAL)
 
-  const viajesFiltrados = viajes.filter((viaje) => {
-    const coincideOrigen = viaje.origen
+  const viajesFiltrados = (Array.isArray(viajes) ? viajes : []).filter((viaje) => {
+    const coincideOrigen = (viaje.origen || '')
       .toLowerCase()
       .includes(filtro.origen.toLowerCase())
-    const coincideDestino = viaje.destino
+    const coincideDestino = (viaje.destino || '')
       .toLowerCase()
       .includes(filtro.destino.toLowerCase())
     return coincideOrigen && coincideDestino
