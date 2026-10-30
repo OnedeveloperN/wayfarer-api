@@ -1,0 +1,14 @@
+# Dependencias
+node_modules/
+**/node_modules/
+
+# Entornos y secretos
+.env
+.env.local
+**/.env
+**/.env.local
+
+# Builds de producción
+dist/
+build/
+**/.DS_Store
